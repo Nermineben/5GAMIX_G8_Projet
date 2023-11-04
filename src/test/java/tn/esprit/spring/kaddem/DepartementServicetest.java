@@ -18,8 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class DepartementServicetest {
-
+public class DepartementServicetest{
     @InjectMocks
     private DepartementServiceImpl departementService;
 
@@ -27,90 +26,80 @@ public class DepartementServicetest {
     private DepartementRepository departementRepository;
 
     @BeforeEach
-    public void init() {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void testRetrieveAllDepartements() {
-        // Créez des données fictives pour le repository
+    public void testRetrieveAllDepartementsShouldReturnListOfDepartements() {
+        // Arrange
         Departement departement1 = new Departement();
         Departement departement2 = new Departement();
         when(departementRepository.findAll()).thenReturn(Arrays.asList(departement1, departement2));
 
-        // Appelez la méthode du service
+        // Act
         List<Departement> result = departementService.retrieveAllDepartements();
 
-        // Vérifiez que la méthode du repository a été appelée
+        // Assert
         verify(departementRepository, times(1)).findAll();
-
-        // Vérifiez le résultat
         assertEquals(2, result.size());
     }
 
     @Test
-    public void testAddDepartement() {
-        // Créez un département fictif
+    public void testAddDepartementShouldReturnAddedDepartement() {
+        // Arrange
         Departement departement = new Departement();
         when(departementRepository.save(any(Departement.class))).thenReturn(departement);
 
-        // Appelez la méthode du service pour ajouter le département
+        // Act
         Departement result = departementService.addDepartement(departement);
 
-        // Vérifiez que la méthode du repository a été appelée
+        // Assert
         verify(departementRepository, times(1)).save(departement);
-
-        // Vérifiez le résultat
         assertEquals(departement, result);
     }
 
     @Test
-    public void testUpdateDepartement() {
-        // Créez un département fictif
+    public void testUpdateDepartementShouldReturnUpdatedDepartement() {
+        // Arrange
         Departement departement = new Departement();
         when(departementRepository.save(any(Departement.class))).thenReturn(departement);
 
-        // Appelez la méthode du service pour mettre à jour le département
+        // Act
         Departement result = departementService.updateDepartement(departement);
 
-        // Vérifiez que la méthode du repository a été appelée
+        // Assert
         verify(departementRepository, times(1)).save(departement);
-
-        // Vérifiez le résultat
         assertEquals(departement, result);
     }
 
     @Test
-    public void testRetrieveDepartement() {
-        // Créez un ID fictif
+    public void testRetrieveDepartementShouldReturnDepartementById() {
+        // Arrange
         Integer idDepart = 1;
         Departement departement = new Departement();
         when(departementRepository.findById(idDepart)).thenReturn(Optional.of(departement));
 
-        // Appelez la méthode du service pour récupérer le département
+        // Act
         Departement result = departementService.retrieveDepartement(idDepart);
 
-        // Vérifiez que la méthode du repository a été appelée
+        // Assert
         verify(departementRepository, times(1)).findById(idDepart);
-
-        // Vérifiez le résultat
         assertEquals(departement, result);
     }
 
     @Test
-    public void testDeleteDepartement() {
-        // Créez un ID fictif
+    public void testDeleteDepartementShouldCallRetrieveAndDelete() {
+        // Arrange
         Integer idDepartement = 1;
         Departement departement = new Departement();
         when(departementService.retrieveDepartement(idDepartement)).thenReturn(departement);
 
-        // Appelez la méthode du service pour supprimer le département
+        // Act
         departementService.deleteDepartement(idDepartement);
 
-        // Vérifiez que la méthode du service a appelé la méthode retrieveDepartement
+        // Assert
         verify(departementService, times(1)).retrieveDepartement(idDepartement);
-
-        // Vérifiez que la méthode du repository a été appelée pour supprimer le département
         verify(departementRepository, times(1)).delete(departement);
     }
 }
