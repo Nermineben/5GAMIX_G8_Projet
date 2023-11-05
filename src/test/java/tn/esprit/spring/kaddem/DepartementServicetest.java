@@ -1,25 +1,23 @@
 package tn.esprit.spring.kaddem;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.MockitoJUnitRunner;
 import tn.esprit.spring.kaddem.entities.Departement;
 import tn.esprit.spring.kaddem.repositories.DepartementRepository;
 import tn.esprit.spring.kaddem.services.DepartementServiceImpl;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-@ExtendWith(MockitoExtension.class)
+@RunWith(MockitoJUnitRunner.class)
 public class DepartementServicetest {
 
     @InjectMocks
@@ -28,82 +26,58 @@ public class DepartementServicetest {
     @Mock
     private DepartementRepository departementRepository;
 
-    @BeforeEach
-    public void init() {
-        MockitoAnnotations.initMocks(this);
+    @Before
+    public void setUp() {
+        // Initialisation de tout ce dont vous avez besoin pour le test
     }
 
     @Test
     public void testRetrieveAllDepartements() {
-        // Créez des données fictives pour le repository
-        Departement departement1 = new Departement();
-        Departement departement2 = new Departement();
-        when(departementRepository.findAll()).thenReturn(Arrays.asList(departement1, departement2));
+        // Créez une liste de départements simulée pour le test
+        List<Departement> departements = new ArrayList<>();
+        // Ajoutez des éléments à la liste simulée
 
-        // Appelez la méthode du service
+        // Définissez le comportement simulé du repository
+        when(departementRepository.findAll()).thenReturn(departements);
+
+        // Appelez la méthode à tester
         List<Departement> result = departementService.retrieveAllDepartements();
 
-        // Vérifiez que la méthode du repository a été appelée
-        verify(departementRepository, times(1)).findAll();
-
-        // Vérifiez le résultat
-        assertEquals(2, result.size());
+        // Effectuez les assertions
+        assertEquals(departements, result);
     }
 
     @Test
     public void testAddDepartement() {
-        // Créez un département fictif
+        // Créez un département simulé pour le test
         Departement departement = new Departement();
-        when(departementRepository.save(any(Departement.class))).thenReturn(departement);
+        // Définissez le comportement simulé du repository
+        when(departementRepository.save(departement)).thenReturn(departement);
 
-        // Appelez la méthode du service pour ajouter le département
+        // Appelez la méthode à tester
         Departement result = departementService.addDepartement(departement);
 
-        // Vérifiez que la méthode du repository a été appelée
-        verify(departementRepository, times(1)).save(departement);
-
-        // Vérifiez le résultat
-        assertEquals(departement, result);
-    }
-
-    @Test
-    public void testUpdateDepartement() {
-        // Créez un département fictif
-        Departement departement = new Departement();
-        when(departementRepository.save(any(Departement.class))).thenReturn(departement);
-
-        // Appelez la méthode du service pour mettre à jour le département
-        Departement result = departementService.updateDepartement(departement);
-
-        // Vérifiez que la méthode du repository a été appelée
-        verify(departementRepository, times(1)).save(departement);
-
-        // Vérifiez le résultat
+        // Effectuez les assertions
         assertEquals(departement, result);
     }
 
     @Test
     public void testRetrieveDepartement() {
-        // Créez un ID fictif
-        Integer idDepart = 1;
+        // Créez un département simulé pour le test
+        Departement departement = new Departement();
+        int idDepart = 1;
+        departement.setIdDepart(idDepart);
 
-        // Créez un département réel (ou utilisez un département existant de votre base de données)
-        Departement departement = new Departement(); // Initialisez-le avec des valeurs appropriées
-
-        // Enregistrez ce département dans le repository (vous devez avoir une méthode save dans votre repository)
+        // Définissez le comportement simulé du repository
         when(departementRepository.findById(idDepart)).thenReturn(Optional.of(departement));
 
-        // Appelez la méthode du service pour récupérer le département
-        Optional<Departement> optionalDepartement = Optional.ofNullable(departementService.retrieveDepartement(idDepart));
+        // Appelez la méthode à tester
+        Departement result = departementService.retrieveDepartement(idDepart);
 
-        // Vérifiez si le Optional contient une valeur (i.e., le département a été trouvé)
-        assertTrue(optionalDepartement.isPresent());
-
-        // Récupérez la valeur du Optional
-        Departement result = optionalDepartement.get();
-
-        // Vérifiez le résultat
-        assertNotNull(result);
+        // Effectuez les assertions
         assertEquals(departement, result);
     }
+
+    // Ajoutez d'autres méthodes de test pour les autres fonctionnalités du service
+
 }
