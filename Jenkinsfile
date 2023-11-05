@@ -43,6 +43,13 @@ pipeline {
                         }
                     }
                 }
+                   stage('Nexus') {
+                            steps {
+                                script {
+                                    sh 'mvn -f /var/lib/jenkins/workspace/asmaspring/pom.xml deploy'
+                                }
+                            }
+                        }
 
     // Ajoutez d'autres étapes de votre pipeline ici
     }
