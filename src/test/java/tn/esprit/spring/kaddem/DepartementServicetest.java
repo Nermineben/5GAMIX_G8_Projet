@@ -1,23 +1,21 @@
 package tn.esprit.spring.kaddem;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.MockitoAnnotations;
 import tn.esprit.spring.kaddem.entities.Departement;
 import tn.esprit.spring.kaddem.repositories.DepartementRepository;
 import tn.esprit.spring.kaddem.services.DepartementServiceImpl;
 
-@RunWith(MockitoJUnitRunner.class)
 public class DepartementServicetest {
 
     @InjectMocks
@@ -26,8 +24,9 @@ public class DepartementServicetest {
     @Mock
     private DepartementRepository departementRepository;
 
-    @Before
+    @BeforeEach
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
         // Initialisation de tout ce dont vous avez besoin pour le test
     }
 
@@ -79,5 +78,4 @@ public class DepartementServicetest {
     }
 
     // Ajoutez d'autres méthodes de test pour les autres fonctionnalités du service
-
 }
