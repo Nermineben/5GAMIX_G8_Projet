@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: ContratServiceTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.160 s -- in ContratServiceTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.397 s -- in ContratServiceTest
