@@ -52,4 +52,5 @@ public class Departement implements Serializable{
         this.nomDepart = nomDepart;
     }
 
+
 }

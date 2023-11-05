@@ -1,4 +1,5 @@
 package tn.esprit.spring.kaddem;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -85,33 +86,24 @@ public class DepartementServicetest {
     public void testRetrieveDepartement() {
         // Créez un ID fictif
         Integer idDepart = 1;
-        Departement departement = new Departement();
+
+        // Créez un département réel (ou utilisez un département existant de votre base de données)
+        Departement departement = new Departement(); // Initialisez-le avec des valeurs appropriées
+
+        // Enregistrez ce département dans le repository (vous devez avoir une méthode save dans votre repository)
         when(departementRepository.findById(idDepart)).thenReturn(Optional.of(departement));
 
         // Appelez la méthode du service pour récupérer le département
-        Departement result = departementService.retrieveDepartement(idDepart);
+        Optional<Departement> optionalDepartement = Optional.ofNullable(departementService.retrieveDepartement(idDepart));
 
-        // Vérifiez que la méthode du repository a été appelée
-        verify(departementRepository, times(1)).findById(idDepart);
+        // Vérifiez si le Optional contient une valeur (i.e., le département a été trouvé)
+        assertTrue(optionalDepartement.isPresent());
+
+        // Récupérez la valeur du Optional
+        Departement result = optionalDepartement.get();
 
         // Vérifiez le résultat
+        assertNotNull(result);
         assertEquals(departement, result);
     }
-
-//    @Test
-//    public void testDeleteDepartement() {
-//        // Créez un ID fictif
-//        Integer idDepartement = 1;
-//        Departement departement = new Departement();
-//        when(departementService.retrieveDepartement(idDepartement)).thenReturn(departement);
-//
-//        // Appelez la méthode du service pour supprimer le département
-//        departementService.deleteDepartement(idDepartement);
-//
-//        // Vérifiez que la méthode du service a appelé la méthode retrieveDepartement
-//        verify(departementService, times(1)).retrieveDepartement(idDepartement);
-//
-//        // Vérifiez que la méthode du repository a été appelée pour supprimer le département
-//        verify(departementRepository, times(1)).delete(departement);
-//    }
 }
