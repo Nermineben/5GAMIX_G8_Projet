@@ -71,15 +71,17 @@ pipeline {
                                     }
                                   }
                                 }
-                   stage('Docker-compose') {
-                              steps {
+                           stage('Docker-compose') {
+                               steps {
                                    script {
-                                     dir('/var/lib/jenkins/workspace/asmaspring') {
-                                     sh 'docker compose up '
-                                    }
-                             }
-                          }
-                       }
+                                       // Change the working directory to the directory containing docker-compose.yml
+                                       dir('/var/lib/jenkins/workspace/asmaspring') {
+                                           // Execute the docker-compose command
+                                           sh 'docker compose up -d'
+                                       }
+                                   }
+                               }
+                           }
 
     // Ajoutez d'autres étapes de votre pipeline ici
     }
