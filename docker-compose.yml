@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  mysqldb:
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=kaddemdb  # Change the database name if necessary
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - mynetwork
+
+  backend:
+    image: backend  # Update this to the correct image name
+    depends_on:
+      - mysqldb
+    build: ./achat  # Update the build path if necessary
+    restart: on-failure
+    ports:
+      - 8089:8089
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "server.servlet.context-path" : "/kaddem",
+        "server.port" : "8089",
+        "spring.datasource.url" : "jdbc:mysql://mysqldb:3306/kaddemdb?useSSL=false&createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+        "spring.datasource.username" : "root",
+        "spring.datasource.password" : "0000",
+        "spring.jpa.show-sql" : "true",
+        "spring.jpa.hibernate.ddl-auto" : "update",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5Dialect"
+      }'
+    volumes:
+      - ./m2:/root/.m2
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  db:
