@@ -15,5 +15,5 @@ services:
       - 3306:3306
 
     environment:
-      MYSQL_DATABASE: kaddemProject
+      MYSQL_DATABASE: kaddem
       MYSQL_ROOT_PASSWORD: 0000
