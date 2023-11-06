@@ -22,6 +22,7 @@ pipeline {
             }
             }
 
+
         stage('Maven Compile') {
             steps {
                 sh 'mvn -f /var/lib/jenkins/workspace/asmaspring/pom.xml compile'
@@ -36,6 +37,7 @@ pipeline {
                 }
             }
         }
+
                 stage('MVN SONARQUBE') {
                     steps {
                         script {
@@ -50,6 +52,34 @@ pipeline {
                                 }
                             }
                         }
+
+                   stage('Docker Image') {
+                            steps {
+                                  script {
+                                    dir('/var/lib/jenkins/workspace/asmaspring') {
+                                    sh 'docker build -t asmasrairi/srairiasma5gamixg8kaddem:1.0 -f Dockerfile .'
+                                    }
+                                  }
+                                }
+                            }
+                   stage('Docker Hub') {
+                             steps {
+                                   withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: '19451945.', usernameVariable: 'asmasrairi')]) {
+                                   sh 'docker login -u asmasrairi -p 19451945.'
+                                   sh 'docker push asmasrairi/srairiasma5gamixg8kaddem:1.0'
+
+                                    }
+                                  }
+                                }
+                   stage('Docker-compose') {
+                              steps {
+                                   script {
+                                     dir('/var/lib/jenkins/workspace/asmaspring') {
+                                     sh 'docker compose up -d'
+                                    }
+                             }
+                          }
+                       }
 
     // Ajoutez d'autres étapes de votre pipeline ici
     }

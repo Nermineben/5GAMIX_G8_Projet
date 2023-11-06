@@ -69,3 +69,8 @@ Msrc/main/java/tn/esprit/spring/kaddem/controllers/EtudiantRestController.java,
 Ksrc/main/java/tn/esprit/spring/kaddem/controllers/EquipeRestController.java,5\e\5ee8a705c1aa7ea7bff8eb3b589725e2927bff2c
 €
 Psrc/main/java/tn/esprit/spring/kaddem/controllers/DepartementRestController.java,c\7\c724b24f422a3f0b6d86bcdae62360c0701d167a
+:
+
+Dockerfile,6\6\6651ddff6eb82c840ced7c1dddee15c6e1913dd4
+B
+docker-compose.yml,3\5\35b8c13cf2eb2a194eada000eb310d65aed53b2a
