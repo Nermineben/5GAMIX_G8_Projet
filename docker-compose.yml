@@ -9,7 +9,7 @@ services:
     volumes:
       - db:/var/lib/mysql
     environment:
-      - MYSQL_DATABASE=devops
+      - MYSQL_DATABASE=kaddem
       - MYSQL_USER=root
       - MYSQL_PASSWORD=asma
 
