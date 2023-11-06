@@ -75,7 +75,7 @@ pipeline {
                               steps {
                                    script {
                                      dir('/var/lib/jenkins/workspace/asmaspring') {
-                                     sh 'docker compose up -d'
+                                     sh 'docker compose up '
                                     }
                              }
                           }
