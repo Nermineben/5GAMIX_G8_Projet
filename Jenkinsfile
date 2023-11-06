@@ -39,7 +39,7 @@ pipeline {
                 stage('MVN SONARQUBE') {
                     steps {
                         script {
-                            sh 'mvn -f /var/lib/jenkins/workspace/asmaspring/pom.xml sonar:sonar -Dsonar.login=sqa_e44990271c1012cbfa42bff3bcb96fd7d98dc6c9'
+                            sh 'mvn -f /var/lib/jenkins/workspace/asmaspring/pom.xml sonar:sonar -Dsonar.login=sqa_ce78aa88c949d6490d2600eaefa801e9039b12b6'
                         }
                     }
                 }
