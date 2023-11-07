@@ -28,11 +28,16 @@ pipeline {
           //          archiveArtifacts 'target/*.jar'
         //        }
         stage('MVN SONARQUBE') {
-                    steps {
-                        script {
-                            sh 'mvn -f /var/lib/jenkins/workspace/pipe/pom.xml sonar:sonar -Dsonar.login=sqa_f4f84a389a5721c2bf33df9c565380b84d45d42d'
-                        }
-                    }
+            steps {
+               script {
+                   sh 'mvn -f /var/lib/jenkins/workspace/pipe/pom.xml sonar:sonar -Dsonar.login=sqa_f4f84a389a5721c2bf33df9c565380b84d45d42d'
+                }
+            }
+        }
+        stage ('Deploy to Nexus') {
+            steps {
+                sh 'mvn deploy'
+            }
         }
      }
 }
