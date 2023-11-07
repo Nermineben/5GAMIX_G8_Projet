@@ -17,10 +17,13 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-         stage('SonarQube Analysis') {
+        stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('sonarInstallation') {
-                    sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName=\'5GAMIX_G8_Projet\' -Dsonar.projectVersion=1.0  -Dsonar.sources=src/main/java -Dsonar.sourceEncoding=UTF-8 -Dsonar.language=java -Dsonar.java.binaries=target/classes'
+                script {
+                    def scannerHome = tool 'sonar-scanner'
+                    withSonarQubeEnv('sonar') {
+                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=devops -Dsonar.projectName=5GAMIX_G8_Projet -Dsonar.projectVersion=1.0 -Dsonar.sources=src/main/java -Dsonar.sourceEncoding=UTF-8 -Dsonar.language=java -Dsonar.java.binaries=target/classes"
+                    }
                 }
             }
             post {
