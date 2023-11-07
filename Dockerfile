@@ -1,10 +1,5 @@
 FROM openjdk:11
-RUN mvn dependency:get \
-  -DremoteRepositories=http://192.168.1.15:8081/repository/maven-public/ \
-  -DgroupId=tn.esprit.spring \
-  -DartifactId=kaddem \
-  -Dversion=1.0 \
-  -Dtransitive=false \
-  -Ddest=./kaddem-api.jar
-
-ENTRYPOINT [ "java", "-jar", "./kaddem-api.jar" ] 
+EXPOSE 8080
+WORKDIR /projet2
+ADD target/projet2.jar /projet2/
+ENTRYPOINT ["java", "-jar", "projet2.jar"]
