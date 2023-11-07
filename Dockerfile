@@ -1,5 +1,4 @@
-FROM maven:3.3-jdk-11
-
+FROM openjdk:11
 RUN mvn dependency:get \
   -DremoteRepositories=http://192.168.1.15:8081/repository/maven-public/ \
   -DgroupId=tn.esprit.spring \
