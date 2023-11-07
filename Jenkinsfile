@@ -36,7 +36,7 @@ pipeline {
         }
         stage ('Deploy to Nexus') {
             steps {
-                sh 'mvn deploy'
+                sh 'mvn -f /var/lib/jenkins/workspace/pipe/pom.xml deploy'
             }
         }
      }
