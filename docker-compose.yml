@@ -10,8 +10,8 @@ services:
       - db:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=kaddem
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=asma
+      - MYSQL_ROOT_PASSWORD=asma
+
 
   DevOps_Project-backend:
     depends_on:
