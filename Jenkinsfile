@@ -19,7 +19,7 @@ pipeline {
         }
          stage('SonarQube Analysis') {
             steps {
-                    sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName=\'5GAMIX_G8_Projet\' -Dsonar.projectVersion=1.0  -Dsonar.sources=src/main/java -Dsonar.sourceEncoding=UTF-8 -Dsonar.language=java -Dsonar.java.binaries=target/classes'
+                    sh 'mvn clean verify sonar:sonar -Dsonar.projectName=\'5GAMIX_G8_Projet\' -Dsonar.projectVersion=1.0  -Dsonar.sources=src/main/java -Dsonar.sourceEncoding=UTF-8 -Dsonar.language=java -Dsonar.java.binaries=target/classes'
            }
             post {
                 success {
